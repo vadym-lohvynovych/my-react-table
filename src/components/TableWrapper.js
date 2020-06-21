@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { Table } from './Table/Table';
 import { TableSubComponent } from './TableSubComponent';
 import { Modal } from './Modal';
 import { AddEmployeeForm } from './AddEmployeeForm';
+import { Select } from './Select';
 
 const avaliableRoles = [
   {
     label: 'driver',
-    id: 1,
+    id: 1
   },
   {
     label: 'agent',
-    id: 2,
+    id: 2
   },
   {
     label: 'operator',
-    id: 3,
+    id: 3
   },
   {
     label: 'usher',
-    id: 4,
+    id: 4
   },
   {
     label: 'system admin',
-    id: 5,
-  },
+    id: 5
+  }
 ];
 
 const defaultEmployees = [
@@ -34,61 +34,61 @@ const defaultEmployees = [
     name: "Misha Lepet'ko",
     address: {
       city: 'Odessa',
-      place: "Deribasivs'ka 23",
+      place: "Deribasivs'ka 23"
     },
     roles: [1, 3, 4],
     contactInfo: {
       phone: '+380666666666',
-      mail: 'misha@gmail.com',
+      mail: 'misha@gmail.com'
     },
     addedBy: 'Gloria Stelm',
-    addDate: '16.12.1995',
+    addDate: '16.12.1995'
   },
   {
     id: 2,
     name: 'Vadym Petrenko',
     address: {
       city: 'Kyiv',
-      place: 'Svobody 55',
+      place: 'Svobody 55'
     },
     roles: [1, 2, 3],
     contactInfo: {
       phone: '+380555555555',
-      mail: 'vadik@gmail.com',
+      mail: 'vadik@gmail.com'
     },
     addedBy: 'Sveta Svalt',
-    addDate: '16.12.2000',
+    addDate: '16.12.2000'
   },
   {
     id: 3,
     name: 'Oleg Petrenko',
     address: {
       city: 'Rivne',
-      place: 'Svobody 44',
+      place: 'Svobody 44'
     },
     roles: [],
     contactInfo: {
       phone: '+38012333567',
-      mail: 'oeg@gmail.com',
+      mail: 'oeg@gmail.com'
     },
     addedBy: 'Lena Buhgalter',
-    addDate: '16.12.2005',
+    addDate: '16.12.2005'
   },
   {
     id: 4,
     name: 'Petro Galaburda',
     address: {
       city: 'Kharkiv',
-      place: 'Pushkina 44',
+      place: 'Pushkina 44'
     },
     roles: [4, 5],
     contactInfo: {
       phone: '+380987654321',
-      mail: 'petya@gmail.com',
+      mail: 'petya@gmail.com'
     },
     addedBy: 'Lena Buhgalter',
-    addDate: '16.12.2005',
-  },
+    addDate: '16.12.2005'
+  }
 ];
 
 export function TableWrapper() {
@@ -102,19 +102,30 @@ export function TableWrapper() {
       accessor: 'name',
       render: (cell) => <p className="font-bold text-blue-600">{cell.name}</p>,
       showSubOnClick: true,
-      className: 'cursor-pointer',
+      className: 'cursor-pointer'
     },
     {
       header: 'Address',
       render: renderAddress,
-      className: `hidden md:block`,
+      className: `hidden md:block`
     },
     {
       header: 'Roles',
       render: renderRoles,
-      style: { minWidth: '250px' },
-    },
+      style: { minWidth: '250px' }
+    }
   ];
+
+  function closeModalOnEsq(e) {
+    modalOpened && e.which === 27 && seModalOpened(false);
+  }
+
+  useEffect(() => {
+    document.body.addEventListener('keydown', closeModalOnEsq);
+    return () => {
+      document.body.removeEventListener('keydown', closeModalOnEsq);
+    };
+  });
 
   function addEmployee({ name, city, address, phone, email, creator }) {
     const newEmployee = {
@@ -122,15 +133,15 @@ export function TableWrapper() {
       name: name,
       address: {
         city: city,
-        place: address,
+        place: address
       },
       roles: [],
       contactInfo: {
         phone: phone,
-        mail: email,
+        mail: email
       },
       addedBy: creator,
-      addDate: `16.12.${1960 + Math.round(Math.random() * 40)}`,
+      addDate: `16.12.${1960 + Math.round(Math.random() * 40)}`
     };
 
     setEmployees((employees) => [...employees, newEmployee]);
@@ -151,18 +162,10 @@ export function TableWrapper() {
 
   function renderRoles(cell) {
     if (employeeAddingRoleId === cell.id) {
-      return (
-        <select autoFocus value name="role" className="w-full" onChange={(e) => addRole(cell.id, e.target.value)} onBlur={setEmployeeAddingRoleId.bind(null, null)}>
-          <option disabled value>
-            -- select a role --
-          </option>
-          {avaliableRoles.map((role) => (
-            <option key={role.id} value={role.id}>
-              {role.label}
-            </option>
-          ))}
-        </select>
-      );
+      const onChange = (e) => addRole(cell.id, e.target.value);
+      const onBlur = setEmployeeAddingRoleId.bind(null, null);
+
+      return <Select onChange={onChange} onBlur={onBlur} options={avaliableRoles} />;
     }
 
     const roles = cell.roles.map((roleId) => {

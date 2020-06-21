@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 export function Modal({ children, closeModal }) {

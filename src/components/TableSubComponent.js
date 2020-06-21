@@ -5,20 +5,30 @@ export function TableSubComponent({ data, renderAddress }) {
     contactInfo: { phone, mail },
   } = data;
 
+  const noDataText = <span className="ml-1">Unknown</span>;
+
   return (
     <div className="py-2 px-4 rounded-b mb-2">
       <Details header="Contact info">
         <p className="detail whitespace-no-wrap">
-          Phone:{' '}
-          <a className="link" href={`tel:${phone}`}>
-            {phone}
-          </a>
+          Phone:
+          {phone ? (
+            <a className="link ml-1" href={`tel:${phone}`}>
+              {phone}
+            </a>
+          ) : (
+            noDataText
+          )}
         </p>
         <p className="detail whitespace-no-wrap">
-          Email:{' '}
-          <a className="link" href={`mailto:${mail}`}>
-            {mail}
-          </a>
+          Email:
+          {mail ? (
+            <a className="link ml-1" href={`mailto:${mail}`}>
+              {mail}
+            </a>
+          ) : (
+            noDataText
+          )}
         </p>
       </Details>
 
@@ -27,7 +37,7 @@ export function TableSubComponent({ data, renderAddress }) {
       </Details>
 
       <Details header="More info">
-        <a className="link" href="#">
+        <a className="link " href="#">
           WATCH
         </a>
       </Details>

@@ -93,7 +93,6 @@ const defaultEmployees = [
 
 export function TableWrapper() {
   const [employees, setEmployees] = useState(defaultEmployees);
-
   const [employeeAddingRoleId, setEmployeeAddingRoleId] = useState(null);
   const [modalOpened, seModalOpened] = useState(false);
 

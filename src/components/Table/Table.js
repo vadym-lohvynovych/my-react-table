@@ -21,7 +21,7 @@ export function Table({ data, columns, renderSubComponent, accordionOpening, cla
     return openedSubIds.includes(id);
   }
 
-  function showSubComponent(id) {
+  function toggleSubComponentVisibility(id) {
     const isOpened = isSubOpened(id);
 
     let newOpenedSubIds;
@@ -40,7 +40,7 @@ export function Table({ data, columns, renderSubComponent, accordionOpening, cla
       <div className={`flex`}>{renderTableHeader(columns)}</div>
       {data.map((item) => (
         <React.Fragment key={item.id}>
-          <div className={`flex ${isSubOpened(item.id) ? 'opened bg-gray-300' : ''}`}>{renderTableRow(columns, item, showSubComponent)}</div>
+          <div className={`flex ${isSubOpened(item.id) ? 'opened bg-gray-300' : ''}`}>{renderTableRows(columns, item, toggleSubComponentVisibility)}</div>
           {isSubOpened(item.id) && renderSubComponent(item)}
         </React.Fragment>
       ))}
@@ -92,9 +92,9 @@ function renderTableHeader(columns) {
   ));
 }
 
-function renderTableRow(columns, item, showSubComponent) {
+function renderTableRows(columns, item, toggleSubAction) {
   return columns.map((col, idx) => (
-    <div key={idx} {...getColProps(col)} onClick={col.showSubOnClick ? showSubComponent.bind(null, item.id) : null}>
+    <div key={idx} {...getColProps(col)} onClick={col.showSubOnClick ? toggleSubAction.bind(null, item.id) : null}>
       {col.render ? col.render(item) : item[col.accessor]}
     </div>
   ));

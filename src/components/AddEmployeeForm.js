@@ -10,35 +10,35 @@ function getLengthValidaion(valuesMap, values) {
   return errors;
 }
 
-export function AddEmployeeForm({ handleSubmit }) {
-  function onSubmit(e) {
-    e.preventDefault();
-    const { name, city, address, phone, email, creator } = e.target;
+const createSubmitFunc = (handleSubmit) => (e) => {
+  e.preventDefault();
+  const { name, city, address, phone, email, creator } = e.target;
 
-    const values = {
-      name: name.value,
-      city: city.value,
-      address: address.value,
-      phone: phone.value,
-      email: email.value,
-      creator: creator.value,
-    };
+  const values = {
+    name: name.value,
+    city: city.value,
+    address: address.value,
+    phone: phone.value,
+    email: email.value,
+    creator: creator.value,
+  };
 
-    const errors = getLengthValidaion({ creator: 3, name: 3, email: 3 }, values);
+  const errors = getLengthValidaion({ creator: 3, name: 3, email: 3 }, values);
 
-    if (errors.length) {
-      alert(errors[0]);
-      return;
-    }
-
-    handleSubmit(values);
+  if (errors.length) {
+    alert(errors[0]);
+    return;
   }
 
-  return (
-    <form onSubmit={onSubmit} className="p-8 bg-gray-300 rounded">
-      <RenderInput name="Creator" isRequired></RenderInput>
+  handleSubmit(values);
+};
 
-      <RenderInput name="Name" isRequired></RenderInput>
+export function AddEmployeeForm({ handleSubmit }) {
+  return (
+    <form onSubmit={createSubmitFunc(handleSubmit)} className="p-8 bg-gray-300 rounded">
+      <RenderInput name="Creator" required></RenderInput>
+
+      <RenderInput name="Name" required></RenderInput>
 
       <RenderInput name="City"></RenderInput>
 
@@ -46,7 +46,7 @@ export function AddEmployeeForm({ handleSubmit }) {
 
       <RenderInput name="Phone"></RenderInput>
 
-      <RenderInput name="Email" isRequired></RenderInput>
+      <RenderInput name="Email" required></RenderInput>
 
       <button className="bg-gray-700 px-5 py-1 text-white" type="submit">
         SUBMIT
@@ -55,12 +55,12 @@ export function AddEmployeeForm({ handleSubmit }) {
   );
 }
 
-function RenderInput({ name, isRequired }) {
-  const required = isRequired ? <span className="text-red-700">*</span> : null;
+function RenderInput({ name, required }) {
+  const requiredText = required ? <span className="text-red-700">*</span> : null;
   return (
     <label className="flex mb-5">
       <p className={`w-20 mr-3`}>
-        {name} {required}:
+        {name} {requiredText}:
       </p>
       <input className="px-3 py-1 rounded" name={name.toLowerCase()} placeholder={`${name}`}></input>
     </label>

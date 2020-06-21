@@ -206,12 +206,16 @@ export function TableWrapper() {
     setEmployees((employees) => {
       return employees.map((emp) => {
         if (emp.id === employeeId) {
-          if (emp.roles.includes(Number(roleId))) return emp;
-          emp.roles = [...emp.roles, Number(roleId)];
+          if (emp.roles.includes(Number(roleId))) {
+            return emp;
+          } else {
+            emp.roles = [...emp.roles, Number(roleId)];
+          }
         }
         return emp;
       });
     });
+
     setEmployeeAddingRoleId(null);
   }
 
@@ -224,7 +228,7 @@ export function TableWrapper() {
       <button className="bg-gray-300 px-5 py-1" onClick={seModalOpened.bind(null, true)}>
         Add new employee
       </button>
-      <Table style={{ margin: '20px 0', minWidth: '450px' }} accordionOpening data={employees} columns={columns} renderSubComponent={renderSubComponent} />
+      <Table accordionOpening style={{ margin: '20px 0', minWidth: '400px' }} data={employees} columns={columns} renderSubComponent={renderSubComponent} />
 
       {modalOpened && (
         <Modal>

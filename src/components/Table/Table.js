@@ -9,7 +9,7 @@ const subComponentButtonCol = {
   },
   className: 'show-sub-component flex-shrink-0 select-none px-3 py-1 block cursor-pointer flex items-center justify-center',
   showSubOnClick: true,
-  style: { width: '45px' },
+  style: { width: '45px' }
 };
 
 export function Table({ data, columns, renderSubComponent, accordionOpening, className, style }) {
@@ -58,12 +58,12 @@ Table.propTypes = {
       accessor: PropTypes.string, //key to get value from data item
       className: PropTypes.string,
       style: PropTypes.object,
-      showSubOnClick: PropTypes.bool,
+      showSubOnClick: PropTypes.bool
     })
   ),
   renderSubComponent: PropTypes.func,
   accordionOpening: PropTypes.bool,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 function getColProps(col, isHead) {
@@ -78,9 +78,9 @@ function getColProps(col, isHead) {
       ...col.style,
       width: width || '100%',
       minWidth: minWidth,
-      flexShrink: width ? '0' : 'auto',
+      flexShrink: width ? '0' : 'auto'
     },
-    className: `${commonClassName} ${additionalClassName}`,
+    className: `${commonClassName} ${additionalClassName}`
   };
 }
 

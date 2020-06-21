@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-export function Modal({ children, closeModal }) {
+export function Modal({ children }) {
   const el = document.createElement('div');
   el.classList.add('modal');
 

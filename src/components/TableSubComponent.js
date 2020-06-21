@@ -2,7 +2,7 @@ import React from 'react';
 
 export function TableSubComponent({ data, renderAddress }) {
   const {
-    contactInfo: { phone, mail },
+    contactInfo: { phone, mail }
   } = data;
 
   const noDataText = <span className="ml-1">Unknown</span>;

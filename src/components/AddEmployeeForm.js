@@ -2,11 +2,13 @@ import React from 'react';
 
 function getLengthValidaion(valuesMap, values) {
   let errors = [];
+
   Object.keys(valuesMap).forEach((key) => {
     if (values[key].length < valuesMap[key]) {
       errors.push(`${key} value should be longer than ${valuesMap[key]} characters`);
     }
   });
+
   return errors;
 }
 
@@ -20,7 +22,7 @@ const createSubmitFunc = (handleSubmit) => (e) => {
     address: address.value,
     phone: phone.value,
     email: email.value,
-    creator: creator.value,
+    creator: creator.value
   };
 
   const errors = getLengthValidaion({ creator: 3, name: 3, email: 3 }, values);
@@ -36,17 +38,17 @@ const createSubmitFunc = (handleSubmit) => (e) => {
 export function AddEmployeeForm({ handleSubmit }) {
   return (
     <form onSubmit={createSubmitFunc(handleSubmit)} className="p-8 bg-gray-300 rounded">
-      <RenderInput name="Creator" required></RenderInput>
+      <InputComponent name="Creator" required></InputComponent>
 
-      <RenderInput name="Name" required></RenderInput>
+      <InputComponent name="Name" required></InputComponent>
 
-      <RenderInput name="City"></RenderInput>
+      <InputComponent name="City"></InputComponent>
 
-      <RenderInput name="Address"></RenderInput>
+      <InputComponent name="Address"></InputComponent>
 
-      <RenderInput name="Phone"></RenderInput>
+      <InputComponent name="Phone"></InputComponent>
 
-      <RenderInput name="Email" required></RenderInput>
+      <InputComponent name="Email" required></InputComponent>
 
       <button className="bg-gray-700 px-5 py-1 text-white" type="submit">
         SUBMIT
@@ -55,7 +57,7 @@ export function AddEmployeeForm({ handleSubmit }) {
   );
 }
 
-function RenderInput({ name, required }) {
+function InputComponent({ name, required }) {
   const requiredText = required ? <span className="text-red-700">*</span> : null;
   return (
     <label className="flex mb-5">

@@ -8,7 +8,7 @@ export function TableSubComponent({ data, renderAddress }) {
   const noDataText = <span className="ml-1">Unknown</span>;
 
   return (
-    <div className="py-2 px-4 rounded-b mb-2">
+    <div className="py-2 px-4 rounded-b mb-2 border-b-2 border-gray-400">
       <Details header="Contact info">
         <p className="detail whitespace-no-wrap">
           Phone:

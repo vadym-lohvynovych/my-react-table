@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer');
 
 const purgecssConfig = {
   content: ['./src/index.html', './src/**/*.js'],
-  whitelistPatternsChildren: [/flatpickr/],
   defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || []
 };
 
